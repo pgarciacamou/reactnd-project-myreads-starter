@@ -4,8 +4,14 @@ import * as BooksAPI from '../utils/BooksAPI';
 import ListBooks from "./ListBooks.js"
 import BooksGrid from "./BooksGrid.js"
 import '../stylesheets/App.css'
+import _ from "lodash";
+import findAndReplaceBook from "../utils/findAndReplaceBook";
 
 class BooksApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleBookshelfUpdate = this.handleBookshelfUpdate.bind(this);
+  }
   state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -18,6 +24,15 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books });
+    });
+  }
+  handleBookshelfUpdate(book, { target }) {
+    const shelf = target.value;
+
+    BooksAPI.update(book, shelf).then(() => {
+      this.setState(({ books }) => ({
+        books: findAndReplaceBook(books, book, _.assign({}, book, { shelf }))
+      }));
     });
   }
   render() {
@@ -42,12 +57,12 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="search-books-results">
-              <BooksGrid books={books} />
+              <BooksGrid books={books} onShelfChange={this.handleBookshelfUpdate} />
             </div>
           </div>
         )} />
         <Route exact path="/" render={() => (
-          <ListBooks books={books} />
+          <ListBooks books={books} onShelfChange={this.handleBookshelfUpdate} />
         )} />
       </div>
     )

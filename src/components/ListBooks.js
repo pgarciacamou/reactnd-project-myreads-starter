@@ -5,7 +5,7 @@ import Bookshelf from "./Bookshelf.js"
 import _ from "lodash";
 import BookshelvesNames from '../constants/BookshelvesNames';
 
-function ListBooks({ books, children }) {
+function ListBooks({ books, children, onShelfChange }) {
   const booksByShelf = _.groupBy(books, "shelf");
 
   return (
@@ -15,10 +15,11 @@ function ListBooks({ books, children }) {
       </div>
       <div className="list-books-content">
         {_.keys(booksByShelf).map((shelfKey) => (
-          <Bookshelf
+          shelfKey !== "none" && <Bookshelf
             key={shelfKey}
             name={BookshelvesNames[shelfKey]}
             books={booksByShelf[shelfKey]}
+            onShelfChange={onShelfChange}
           />
         ))}
       </div>

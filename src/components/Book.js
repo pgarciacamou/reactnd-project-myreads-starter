@@ -1,7 +1,11 @@
 import React from "react";
 import "../stylesheets/Book.css";
+import BookshelvesNames from '../constants/BookshelvesNames';
+import _ from "lodash";
 
-function Book({ imageLinks, title, authors }) {
+function Book(book) {
+  const { imageLinks, title, authors, onShelfChange, shelf } = book;
+
   return (
     <div className="book">
       <div className="book-top">
@@ -11,11 +15,11 @@ function Book({ imageLinks, title, authors }) {
           backgroundImage: `url(${imageLinks.thumbnail})`
         }}></div>
         <div className="book-shelf-changer">
-          <select>
+          <select defaultValue={shelf} onChange={onShelfChange.bind(null, book)}>
             <option value="none" disabled>Move to...</option>
-            <option value="currentlyReading">Currently Reading</option>
-            <option value="wantToRead">Want to Read</option>
-            <option value="read">Read</option>
+            {_.keys(BookshelvesNames).map((key) => (
+              <option key={key} value={key}>{BookshelvesNames[key]}</option>
+            ))}
             <option value="none">None</option>
           </select>
         </div>
