@@ -2,20 +2,14 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../stylesheets/ListBooks.css";
 import _ from "lodash";
-import * as BooksAPI from '../utils/BooksAPI';
 import BookshelvesNames from '../constants/BookshelvesNames';
 
 class ListBooks extends Component {
   state = {
     books: []
   }
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books });
-    })
-  }
   render() {
-    const { books } = this.state;
+    const { books } = this.props;
     const booksByShelf = _.groupBy(books, "shelf");
 
     return (

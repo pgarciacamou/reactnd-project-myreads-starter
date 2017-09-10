@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Link } from "react-router-dom"
-
+import * as BooksAPI from '../utils/BooksAPI';
 import ListBooks from "./ListBooks.js"
 import '../stylesheets/App.css'
 
@@ -12,6 +12,11 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
+  }
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books });
+    });
   }
   render() {
     return (
@@ -30,7 +35,6 @@ class BooksApp extends React.Component {
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
                 <input type="text" placeholder="Search by title or author"/>
-
               </div>
             </div>
             <div className="search-books-results">
@@ -38,7 +42,9 @@ class BooksApp extends React.Component {
             </div>
           </div>
         )} />
-        <Route exact path="/" component={ListBooks} />
+        <Route exact path="/" render={() => (
+          <ListBooks books={this.state.books} />
+        )}/>
       </div>
     )
   }
