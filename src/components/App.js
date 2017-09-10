@@ -1,6 +1,5 @@
 import React from 'react'
 import { Route, Link } from "react-router-dom"
-// import * as BooksAPI from './BooksAPI'
 
 import ListBooks from "./ListBooks.js"
 import '../stylesheets/App.css'
@@ -14,7 +13,6 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
   }
-
   render() {
     return (
       <div className="app">
