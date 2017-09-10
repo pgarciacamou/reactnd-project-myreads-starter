@@ -1,11 +1,9 @@
 import React from 'react'
-import _ from "lodash";
 import { Route, Link } from "react-router-dom"
 import * as BooksAPI from '../utils/BooksAPI';
 import ListBooks from "./ListBooks.js"
-import Bookshelf from "./Bookshelf.js"
+import BooksGrid from "./BooksGrid.js"
 import '../stylesheets/App.css'
-import BookshelvesNames from '../constants/BookshelvesNames';
 
 class BooksApp extends React.Component {
   state = {
@@ -24,6 +22,7 @@ class BooksApp extends React.Component {
   }
   render() {
     const { books } = this.state;
+
     return (
       <div className="app">
         <Route path="/search" render={() => (
@@ -43,25 +42,13 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <BooksGrid books={books} />
             </div>
           </div>
         )} />
-        <Route exact path="/" render={() => {
-          const booksByShelf = _.groupBy(books, "shelf");
-
-          return (
-            <ListBooks>
-              {_.keys(booksByShelf).map((shelfKey) => (
-                <Bookshelf
-                  key={shelfKey}
-                  name={BookshelvesNames[shelfKey]}
-                  books={booksByShelf[shelfKey]}
-                />
-              ))}
-            </ListBooks>
-          );
-        }} />
+        <Route exact path="/" render={() => (
+          <ListBooks books={books} />
+        )} />
       </div>
     )
   }
