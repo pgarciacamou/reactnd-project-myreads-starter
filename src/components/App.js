@@ -11,6 +11,7 @@ class BooksApp extends React.Component {
   constructor(props) {
     super(props);
     this.handleBookshelfUpdate = this.handleBookshelfUpdate.bind(this);
+    this.handleSearchQueryUpdate = this.handleSearchQueryUpdate.bind(this);
   }
   state = {
     /**
@@ -19,7 +20,9 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    books: []
+    books: [],
+    query: "",
+    searchResult: []
   }
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
@@ -35,8 +38,16 @@ class BooksApp extends React.Component {
       }));
     });
   }
+  handleSearchQueryUpdate({ target }) {
+    const query = target.value;
+    this.setState({ query });
+
+    BooksAPI.search(query, 100).then((searchResult) => {
+      this.setState({ searchResult })
+    });
+  }
   render() {
-    const { books } = this.state;
+    const { books, query, searchResult } = this.state;
 
     return (
       <div className="app">
@@ -53,11 +64,16 @@ class BooksApp extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
+                <input
+                  type="text"
+                  placeholder="Search by title or author"
+                  value={query}
+                  onChange={this.handleSearchQueryUpdate}
+                />
               </div>
             </div>
             <div className="search-books-results">
-              <BooksGrid books={books} onShelfChange={this.handleBookshelfUpdate} />
+              <BooksGrid books={searchResult} onShelfChange={this.handleBookshelfUpdate} />
             </div>
           </div>
         )} />

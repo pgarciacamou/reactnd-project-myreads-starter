@@ -15,7 +15,7 @@ function Book(book) {
           backgroundImage: `url(${imageLinks.thumbnail})`
         }}></div>
         <div className="book-shelf-changer">
-          <select defaultValue={shelf} onChange={onShelfChange.bind(null, book)}>
+          <select defaultValue={shelf || "none"} onChange={onShelfChange.bind(null, book)}>
             <option value="none" disabled>Move to...</option>
             {_.keys(BookshelvesNames).map((key) => (
               <option key={key} value={key}>{BookshelvesNames[key]}</option>
@@ -25,7 +25,7 @@ function Book(book) {
         </div>
       </div>
       <div className="book-title">{title}</div>
-      <div className="book-authors">{authors.join(", ")}</div>
+      <div className="book-authors">{authors && authors.join(", ")}</div>
     </div>
   );
 }
