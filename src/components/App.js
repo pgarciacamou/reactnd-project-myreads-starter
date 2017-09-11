@@ -6,6 +6,7 @@ import BooksGrid from "./BooksGrid.js"
 import '../stylesheets/App.css'
 import _ from "lodash";
 import findAndReplaceBook from "../utils/findAndReplaceBook";
+import mergeExistingBooks from "../utils/mergeExistingBooks";
 
 class BooksApp extends React.Component {
   constructor(props) {
@@ -73,7 +74,7 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="search-books-results">
-              <BooksGrid books={searchResult} onShelfChange={this.handleBookshelfUpdate} />
+              <BooksGrid books={mergeExistingBooks(searchResult, books)} onShelfChange={this.handleBookshelfUpdate} />
             </div>
           </div>
         )} />
