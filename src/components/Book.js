@@ -12,7 +12,7 @@ function Book(book) {
         <div className="book-cover" style={{
           width: 128,
           height: 193,
-          backgroundImage: `url(${imageLinks.thumbnail})`
+          backgroundImage: `url("${imageLinks ? imageLinks.thumbnail : ""}")`
         }}></div>
         <div className="book-shelf-changer">
           <select defaultValue={shelf || "none"} onChange={onShelfChange.bind(null, book)}>
