@@ -45,6 +45,17 @@ class BooksApp extends React.Component {
 
     BooksAPI.search(query, 100)
     .then((searchResult) => {
+      if(target.value !== query) {
+        /**
+         * DO NOT UPDATE BOOKS WHEN THE TARGET VALUE HAS CHANGED
+         *
+         * searching is async, thus the results can be async
+         * we need to make sure that the query we searched for
+         * is still valid.
+         */
+        return;
+      }
+
       if(searchResult.error) {
         throw searchResult.error;
       }
