@@ -14,7 +14,7 @@ function ListBooks({ books, children, onShelfChange }) {
         <h1>MyReads</h1>
       </div>
       <div className="list-books-content">
-        {Object.keys(booksByShelf).map((shelfKey) => (
+        {Object.keys(booksByShelf).sort().map((shelfKey) => (
           shelfKey !== "none" && <Bookshelf
             key={shelfKey}
             name={BookshelvesNames[shelfKey]}

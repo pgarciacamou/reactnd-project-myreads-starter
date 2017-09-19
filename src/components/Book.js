@@ -16,7 +16,7 @@ function Book(book) {
         <div className="book-shelf-changer">
           <select defaultValue={shelf || "none"} onChange={onShelfChange.bind(null, book)}>
             <option value="none" disabled>Move to...</option>
-            {Object.keys(BookshelvesNames).map((key) => (
+            {Object.keys(BookshelvesNames).sort().map((key) => (
               <option key={key} value={key}>{BookshelvesNames[key]}</option>
             ))}
             <option value="none">None</option>
