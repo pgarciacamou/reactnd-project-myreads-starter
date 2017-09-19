@@ -4,6 +4,7 @@ import "../stylesheets/ListBooks.css";
 import Bookshelf from "./Bookshelf.js"
 import groupBy from "lodash/groupBy";
 import BookshelvesNames from '../constants/BookshelvesNames';
+import getShelvesKeys from '../utils/getShelvesKeys';
 
 function ListBooks({ books, children, onShelfChange }) {
   const booksByShelf = groupBy(books, "shelf");
@@ -14,7 +15,7 @@ function ListBooks({ books, children, onShelfChange }) {
         <h1>MyReads</h1>
       </div>
       <div className="list-books-content">
-        {Object.keys(booksByShelf).sort().map((shelfKey) => (
+        {getShelvesKeys(booksByShelf).map((shelfKey) => (
           shelfKey !== "none" && <Bookshelf
             key={shelfKey}
             name={BookshelvesNames[shelfKey]}
