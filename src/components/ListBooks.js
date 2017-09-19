@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../stylesheets/ListBooks.css";
 import Bookshelf from "./Bookshelf.js"
-import _ from "lodash";
+import groupBy from "lodash/groupBy";
 import BookshelvesNames from '../constants/BookshelvesNames';
 
 function ListBooks({ books, children, onShelfChange }) {
-  const booksByShelf = _.groupBy(books, "shelf");
+  const booksByShelf = groupBy(books, "shelf");
 
   return (
     <div className="list-books">
@@ -14,7 +14,7 @@ function ListBooks({ books, children, onShelfChange }) {
         <h1>MyReads</h1>
       </div>
       <div className="list-books-content">
-        {_.keys(booksByShelf).map((shelfKey) => (
+        {Object.keys(booksByShelf).map((shelfKey) => (
           shelfKey !== "none" && <Bookshelf
             key={shelfKey}
             name={BookshelvesNames[shelfKey]}

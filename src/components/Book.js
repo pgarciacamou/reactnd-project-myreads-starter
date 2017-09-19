@@ -1,7 +1,6 @@
 import React from "react";
 import "../stylesheets/Book.css";
 import BookshelvesNames from '../constants/BookshelvesNames';
-import _ from "lodash";
 
 function Book(book) {
   const { imageLinks, title, authors, onShelfChange, shelf } = book;
@@ -17,7 +16,7 @@ function Book(book) {
         <div className="book-shelf-changer">
           <select defaultValue={shelf || "none"} onChange={onShelfChange.bind(null, book)}>
             <option value="none" disabled>Move to...</option>
-            {_.keys(BookshelvesNames).map((key) => (
+            {Object.keys(BookshelvesNames).map((key) => (
               <option key={key} value={key}>{BookshelvesNames[key]}</option>
             ))}
             <option value="none">None</option>

@@ -1,8 +1,8 @@
-import _ from "lodash";
+import find from "lodash/find";
 
 function mergeExistingBooks(dest, src) {
-  return _.map(dest, (book) =>
-    _.assign({}, book, _.find(src, (b) => b.id === book.id))
+  return Object.map(dest, (book) =>
+    Object.assign({}, book, find(src, (b) => b.id === book.id))
   )
 }
 
