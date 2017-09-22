@@ -14,6 +14,7 @@ class BooksApp extends React.Component {
     this.handleBookshelfUpdate = this.handleBookshelfUpdate.bind(this);
     this.handleSearchQueryUpdate = this.handleSearchQueryUpdate.bind(this);
   }
+  cache = {}
   state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -47,6 +48,15 @@ class BooksApp extends React.Component {
       return this.setState({ searchResult: [] });
     }
 
+    /**
+     * used cached searches to optimize speed and prevent
+     * sending request to the API very often.
+     */
+    const previousSearch = this.cache[query];
+    if(previousSearch && Date.now() < previousSearch.expiration) {
+      return this.setState({ searchResult: this.cache[query] });
+    }
+
     BooksAPI.search(query, 100)
     .then((searchResult) => {
       if(target.value !== query) {
@@ -63,6 +73,9 @@ class BooksApp extends React.Component {
       if(searchResult.error) {
         throw searchResult.error;
       }
+
+      searchResult.expiration = Date.now() + 60000; // cache result for 1 minute
+      this.cache[query] = searchResult;
       this.setState({ searchResult })
     })
     .catch(err => {
