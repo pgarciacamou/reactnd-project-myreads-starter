@@ -4,7 +4,7 @@ import * as BooksAPI from '../utils/BooksAPI';
 import ListBooks from "./ListBooks.js"
 import BooksGrid from "./BooksGrid.js"
 import '../stylesheets/App.css'
-import findAndReplaceBook from "../utils/findAndReplaceBook";
+import updateBook from "../utils/updateBook";
 import mergeExistingBooks from "../utils/mergeExistingBooks";
 import isEmpty from "lodash/isEmpty";
 
@@ -36,7 +36,7 @@ class BooksApp extends React.Component {
 
     BooksAPI.update(book, shelf).then(() => {
       this.setState(({ books }) => ({
-        books: findAndReplaceBook(books, book, Object.assign({}, book, { shelf }))
+        books: updateBook(books, book, { shelf })
       }));
     });
   }
