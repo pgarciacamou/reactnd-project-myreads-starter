@@ -6,6 +6,7 @@ import BooksGrid from "./BooksGrid.js"
 import '../stylesheets/App.css'
 import findAndReplaceBook from "../utils/findAndReplaceBook";
 import mergeExistingBooks from "../utils/mergeExistingBooks";
+import isEmpty from "lodash/isEmpty";
 
 class BooksApp extends React.Component {
   constructor(props) {
@@ -41,6 +42,10 @@ class BooksApp extends React.Component {
   handleSearchQueryUpdate({ target }) {
     const query = target.value;
     this.setState({ query });
+
+    if(isEmpty(query)) {
+      return this.setState({ searchResult: [] });
+    }
 
     BooksAPI.search(query, 100)
     .then((searchResult) => {
