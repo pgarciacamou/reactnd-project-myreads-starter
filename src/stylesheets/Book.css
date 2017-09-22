@@ -39,3 +39,23 @@
   opacity: 0;
   cursor: pointer;
 }
+
+/* book cover */
+
+.book-cover {
+  width: 128px;
+  height: 193px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  background: #eee;
+  transition: transform linear 150ms;
+  transform: scale(0.96);
+}
+.book:hover .book-cover {
+  outline: #41d2ff solid thick;
+  transform: scale(1.02);
+}
+.book-cover-title {
+  padding: 20px 10px 0;
+  text-align: center;
+  font-size: 0.8em;
+}
