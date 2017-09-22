@@ -3,13 +3,7 @@ import { Link } from "react-router-dom";
 import "../stylesheets/ListBooks.css";
 import Bookshelf from "./Bookshelf.js"
 import groupBy from "lodash/groupBy";
-import includes from "lodash/includes";
-import BookshelvesNames from '../constants/BookshelvesNames';
-import getShelvesKeys from '../utils/getShelvesKeys';
-
-const HiddenShelves = [
-  "none"
-];
+import BookshelvesInfo from '../constants/BookshelvesInfo';
 
 function ListBooks({ books, children, onShelfChange }) {
   const booksByShelf = groupBy(books, "shelf");
@@ -20,11 +14,11 @@ function ListBooks({ books, children, onShelfChange }) {
         <h1>MyReads</h1>
       </div>
       <div className="list-books-content">
-        {getShelvesKeys(booksByShelf).map((shelfKey) => (
-          !includes(HiddenShelves, shelfKey) && <Bookshelf
-            key={shelfKey}
-            name={BookshelvesNames[shelfKey]}
-            books={booksByShelf[shelfKey]}
+        {BookshelvesInfo.map(({ id, key, name }) => (
+          <Bookshelf
+            key={id}
+            name={name}
+            books={booksByShelf[key]}
             onShelfChange={onShelfChange}
           />
         ))}

@@ -1,7 +1,6 @@
 import React from "react";
 import "../stylesheets/Book.css";
-import BookshelvesNames from '../constants/BookshelvesNames';
-import getShelvesKeys from '../utils/getShelvesKeys';
+import BookshelvesInfo from '../constants/BookshelvesInfo';
 
 function Book(book) {
   const { imageLinks, title, authors, onShelfChange, shelf } = book;
@@ -17,8 +16,8 @@ function Book(book) {
         <div className="book-shelf-changer">
           <select defaultValue={shelf || "none"} onChange={onShelfChange.bind(null, book)}>
             <option value="none" disabled>Move to...</option>
-            {getShelvesKeys(BookshelvesNames).map((key) => (
-              <option key={key} value={key}>{BookshelvesNames[key]}</option>
+            {BookshelvesInfo.map(({ id, key, name }) => (
+              <option key={id} value={key}>{name}</option>
             ))}
             <option value="none">None</option>
           </select>
