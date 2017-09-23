@@ -49,6 +49,11 @@
   background: #eee;
   transition: transform linear 150ms;
   transform: scale(0.96);
+  background-size: cover;
+  background-position: 50% 50%;
+}
+.book-cover.no-cover {
+  opacity: 0.4;
 }
 .book:hover .book-cover {
   outline: #41d2ff solid thick;
