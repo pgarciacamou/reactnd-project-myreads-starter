@@ -4,7 +4,6 @@ import * as BooksAPI from '../utils/BooksAPI';
 import SearchBooks from "./SearchBooks.js";
 import ListBooks from "./ListBooks.js";
 import '../stylesheets/App.css';
-import updateBook from "../utils/updateBook";
 
 class BooksApp extends React.Component {
   constructor(props) {
@@ -24,7 +23,9 @@ class BooksApp extends React.Component {
 
     BooksAPI.update(book, shelf).then(() => {
       this.setState(({ books }) => ({
-        books: updateBook(books, book, { shelf })
+        books: books.filter(b => b.id !== book.id).concat([
+          Object.assign({}, book, { shelf }) // book is read only
+        ])
       }));
     });
   }
