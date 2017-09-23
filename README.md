@@ -10,7 +10,7 @@ When searching for a book, there is a list of allowed search terms, such as:
 'Android', 'Christie', 'Classics', 'Comics', 'Film', ...
 ```
 
-To see all the list of terms, go to: [/SEARCH_TERMS.md]
+To see all the list of terms, go to: [SEARCH_TERMS.md](/SEARCH_TERMS.md)
 
 Keep in mind that the book might not exist in the repertory.
 
